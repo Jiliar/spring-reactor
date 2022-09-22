@@ -5,8 +5,8 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="quantity" class="java.lang.Integer"/>
-	<field name="dish" class="com.mitocode.model.Dish"/>
+	<field name="quantity" class="java.lang.Double"/>
+	<field name="dish" class="com.jsolution.model.Dish"/>
 	<background>
 		<band/>
 	</background>

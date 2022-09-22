@@ -34,7 +34,6 @@ public class InvoiceServiceImpl extends CRUDImpl<Invoice, String> implements IIn
         return invoiceRepository;
     }
 
-    @Override
     public Mono<byte[]> generateReport(String idInvoice) {
         //Obteniendo Client
         return invoiceRepository.findById(idInvoice)
