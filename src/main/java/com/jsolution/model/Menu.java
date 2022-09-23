@@ -29,5 +29,7 @@ public class Menu {
     private String nombre;
     @Field(name = "items")
     private List<MenuItem> items;
+    @Field(name = "roles")
+    private List<String> roles;
 
 }

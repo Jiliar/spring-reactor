@@ -65,7 +65,6 @@ public class RoleController {
 
         return monoDB.zipWith(monoBody, (bd, d)->{
                     bd.setId(id);
-                    bd.setMenu(d.getMenu());
                     bd.setNombre(d.getNombre());
                     return bd;
                 })

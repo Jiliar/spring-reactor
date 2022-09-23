@@ -65,6 +65,8 @@ public class MenuHandler {
                     db.setId(id);
                     db.setNombre(cl.getNombre());
                     db.setItems(cl.getItems());
+                    db.setItems(db.getItems());
+                    db.setRoles(db.getRoles());
                     return db;
                 })
                 .flatMap(MenuService::update)

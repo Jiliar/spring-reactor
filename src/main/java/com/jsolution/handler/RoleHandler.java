@@ -64,7 +64,6 @@ public class RoleHandler {
                 .zipWith(monoClient, (db, cl) -> {
                     db.setId(id);
                     db.setNombre(cl.getNombre());
-                    db.setMenu(cl.getMenu());
                     return db;
                 })
                 .flatMap(RoleService::update)

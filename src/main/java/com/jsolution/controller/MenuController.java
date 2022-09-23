@@ -10,11 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
@@ -27,6 +31,22 @@ public class MenuController {
 
     @Autowired
     private IMenuService service;
+
+    @GetMapping("/userauth")
+    public Mono<ResponseEntity<Flux<Menu>>> listAll(){
+        return ReactiveSecurityContextHolder.getContext()
+                .map(SecurityContext::getAuthentication)
+                .map(Authentication::getAuthorities)
+                .map(roles->{
+                    String rolesString = roles.stream().map(Object::toString).collect(Collectors.joining(","));
+                    System.out.println(rolesString);
+                    String[] strings = rolesString.split(",");
+                    return service.getMenus(strings);
+                })
+                .flatMap(menus -> Mono.just(ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(menus)));
+    }
 
     @GetMapping
     public Mono<ResponseEntity<Flux<Menu>>>findAll() {
@@ -67,6 +87,8 @@ public class MenuController {
                     bd.setId(id);
                     bd.setItems(d.getItems());
                     bd.setNombre(d.getNombre());
+                    bd.setItems(d.getItems());
+                    bd.setRoles(d.getRoles());
                     return bd;
                 })
                 .flatMap(e->service.update(e)) //service::update

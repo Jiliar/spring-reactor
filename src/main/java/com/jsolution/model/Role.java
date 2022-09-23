@@ -25,7 +25,5 @@ public class Role {
     private String id;
     @Field(name = "name")
     private String nombre;
-    @Field(name = "menu")
-    private Menu menu;
 
 }
