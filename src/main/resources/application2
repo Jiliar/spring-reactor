@@ -1,5 +1,4 @@
 spring.data.mondodb.uri = mongodb+srv://administrador:Sencilla2016@cluster0.ynyfcec.mongodb.net/test
-#spring.data.mondodb.uri = mongodb+srv://${USER}:${PASSWORD}@cluster0.ynyfcec.mongodb.net/test
 #spring.data.mondodb.uri = mongodb://localhost:27017/meseroapp
 cloudinary.cloud_name = jiliar-antonio-silgado-cardona
 cloudinary.api_key = 683867121112246
