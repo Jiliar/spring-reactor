@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 
 @Configuration
-//Eliminar el guion bajo del meta class de mongo
 public class MongoConfig implements InitializingBean {
 
     @Autowired
@@ -19,5 +18,4 @@ public class MongoConfig implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         converter.setTypeMapper(new DefaultMongoTypeMapper(null));
     }
-
 }
