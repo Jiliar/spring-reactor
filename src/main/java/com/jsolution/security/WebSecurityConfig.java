@@ -50,7 +50,7 @@ public class WebSecurityConfig {
                 //SWAGGER PARA SPRING SECURITY
                 .pathMatchers("/auth/**").permitAll()
                 .pathMatchers("/v2/login").permitAll()
-                .pathMatchers("/v2/**").authenticated()
+                .pathMatchers("/v2/**").permitAll()
                 //.pathMatchers("/v2/**").hasAnyAuthority("ADMIN")
                 /*.pathMatchers("/v2/**")
                     .access((mono, context) -> mono
