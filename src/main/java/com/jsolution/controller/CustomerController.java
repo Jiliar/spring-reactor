@@ -149,10 +149,14 @@ public class CustomerController {
     //Cloudinary no tiene metodos de procesamiento reactivo.
     public Mono<ResponseEntity<Customer>> uploadV1(@PathVariable("id") String id, @RequestPart("file")FilePart file) throws IOException {
 
+        String name = cloud_name.isEmpty() ? System.getenv("CLOUDINARY_CLOUDNAME") : cloud_name;
+        String key = api_key.isEmpty() ? System.getenv("CLOUDINARY_APIKEY") : api_key;
+        String secret = api_secret.isEmpty() ? System.getenv("CLOUDINARY_APISECRET") : api_secret;
+
         Cloudinary cloudinary =  new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", cloud_name,
-                "api_key", api_key,
-                "api_secret", api_secret
+                "cloud_name", name,
+                "api_key", key,
+                "api_secret", secret
         ));
 
         File f = Files.createTempFile("temp", file.filename()).toFile();

@@ -26,8 +26,9 @@ public class JWTUtil implements Serializable {
     private String expirationTime;
 
     public Claims getAllClaimsFromToken(String token){
+        var secret_key = this.secret.isEmpty() ? System.getenv("JWT_SECRET").getBytes() : this.secret.getBytes();
         return Jwts.parserBuilder()
-                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+                .setSigningKey(Base64.getEncoder().encodeToString(secret_key))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -54,21 +55,14 @@ public class JWTUtil implements Serializable {
     }
 
     private String doGenerateToken(Map<String, Object> claims, String username){
-        Long expirationTimeLong = Long.parseLong(expirationTime);
-
+        var expirationTimes = ! System.getenv("JWT_EXPIRATION").isEmpty()? System.getenv("JWT_EXPIRATION") : expirationTime;
+        Long expirationTimeLong =  Long.parseLong(expirationTimes);
         final Date createdDate = new Date();
         final Date expirationDate = new Date(createdDate.getTime() + expirationTimeLong * 1000); //aprox 46min
 
-        /*return Jwts.builder()
-				.setClaims(claims)
-				.setSubject(username)
-				.setIssuedAt(createdDate)
-				.setExpiration(expirationDate)
-				.signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(secret.getBytes()))
-				.compact();
-		*/
 
-        SecretKey key = Keys.hmacShaKeyFor(this.secret.getBytes());
+        var secret_key = ! System.getenv("JWT_SECRET").isEmpty() ? System.getenv("JWT_SECRET").getBytes() : this.secret.getBytes();
+        SecretKey key = Keys.hmacShaKeyFor(secret_key);
 
         return Jwts.builder()
                 .setClaims(claims)

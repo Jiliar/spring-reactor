@@ -1,7 +1,6 @@
 package com.jsolution.validator;
 
 import com.jsolution.exception.MessageException;
-import dto.ValidationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
